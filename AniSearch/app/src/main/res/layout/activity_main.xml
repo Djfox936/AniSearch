@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".main.MainActivity">
+
+    <TextView
+        android:id="@+id/iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:text="AniSearch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="30dp"
+        />
+
+    <TextView
+        android:id="@+id/iv_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="輕鬆透過截圖查詢動畫片段資訊"
+        app:layout_constraintStart_toStartOf="@id/iv_logo"
+        app:layout_constraintTop_toBottomOf="@id/iv_logo"
+        android:layout_marginTop="10dp"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_logo">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_screenshot"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone"
+            app:cardCornerRadius="16dp">
+
+            <ImageView
+                android:id="@+id/iv_screenshot"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"></ImageView>
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_search"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/rounded_button"
+            android:text="選擇圖檔"
+            android:textStyle="bold"
+            android:textColor="#ffffff"></androidx.appcompat.widget.AppCompatButton>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

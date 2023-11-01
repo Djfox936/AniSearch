@@ -161,4 +161,30 @@
             android:layout_marginStart="5dp"></androidx.appcompat.widget.AppCompatButton>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_no_connection"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/no_connection"
+            android:layout_gravity="center_horizontal"></ImageView>
+        <TextView
+            android:id="@+id/tv_no_connection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="獲取資訊失敗"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"></TextView>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

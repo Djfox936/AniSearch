@@ -89,6 +89,18 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                 m_size = results.size();
                 updateDataByIndex(results, 0);
             }
+            else{
+                m_binding.svContent.setVisibility(View.GONE);
+                m_binding.llButton.setVisibility(View.GONE);
+                m_binding.llNoConnection.setVisibility(View.VISIBLE);
+            }
+        });
+        m_viewModel.showFailed.observe(this, showFailed -> {
+            if (showFailed) {
+                m_binding.llNoConnection.setVisibility(View.VISIBLE);
+            } else {
+                m_binding.llNoConnection.setVisibility(View.GONE);
+            }
         });
     }
 
@@ -96,6 +108,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         if (results.size() == 0) {
             m_binding.svContent.setVisibility(View.GONE);
             m_binding.llButton.setVisibility(View.GONE);
+            m_binding.llNoConnection.setVisibility(View.VISIBLE);
             return;
         }
         if (index >= results.size()) {
@@ -103,6 +116,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         }
         m_binding.svContent.setVisibility(View.VISIBLE);
         m_binding.llButton.setVisibility(View.VISIBLE);
+        m_binding.llNoConnection.setVisibility(View.GONE);
         m_index = index;
         m_binding.tvCount.setText("共有" + results.size() + "筆結果，目前為第" + (index + 1) + "筆");
         if (results.get(index).anilist.getNative() != null) {

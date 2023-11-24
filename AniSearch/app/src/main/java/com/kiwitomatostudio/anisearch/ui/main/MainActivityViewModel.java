@@ -1,4 +1,4 @@
-package com.kiwitomatostudio.anisearch.main;
+package com.kiwitomatostudio.anisearch.ui.main;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

@@ -1,10 +1,12 @@
-package com.kiwitomatostudio.anisearch.result;
+package com.kiwitomatostudio.anisearch.ui.result;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,6 +17,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.kiwitomatostudio.anisearch.R;
 import com.kiwitomatostudio.anisearch.api.dto.AnimeResult;
 import com.kiwitomatostudio.anisearch.databinding.ActivityResultBinding;
+import com.kiwitomatostudio.anisearch.manager.AppSettingsManager;
 
 import java.util.ArrayList;
 
@@ -22,6 +25,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     private String m_imageUri;
     private ResultActivityViewModel m_viewModel;
     private ActivityResultBinding m_binding;
+    private AppSettingsManager m_appSettingsManager;
     private int m_index = 0;
     private int m_size = 0;
 
@@ -36,6 +40,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         m_binding.btnNext.setOnClickListener(this);
         m_binding.btnPrev.setOnClickListener(this);
         m_binding.ivBack.setOnClickListener(this);
+        m_appSettingsManager = AppSettingsManager.getInstance(this);
         observe();
         //判斷button是否enable
         toggleButton();
@@ -89,18 +94,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                 m_size = results.size();
                 updateDataByIndex(results, 0);
             }
-            else{
-                m_binding.svContent.setVisibility(View.GONE);
-                m_binding.llButton.setVisibility(View.GONE);
-                m_binding.llNoConnection.setVisibility(View.VISIBLE);
-            }
-        });
-        m_viewModel.showFailed.observe(this, showFailed -> {
-            if (showFailed) {
-                m_binding.llNoConnection.setVisibility(View.VISIBLE);
-            } else {
-                m_binding.llNoConnection.setVisibility(View.GONE);
-            }
         });
     }
 
@@ -108,7 +101,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         if (results.size() == 0) {
             m_binding.svContent.setVisibility(View.GONE);
             m_binding.llButton.setVisibility(View.GONE);
-            m_binding.llNoConnection.setVisibility(View.VISIBLE);
             return;
         }
         if (index >= results.size()) {
@@ -116,7 +108,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         }
         m_binding.svContent.setVisibility(View.VISIBLE);
         m_binding.llButton.setVisibility(View.VISIBLE);
-        m_binding.llNoConnection.setVisibility(View.GONE);
         m_index = index;
         m_binding.tvCount.setText("共有" + results.size() + "筆結果，目前為第" + (index + 1) + "筆");
         if (results.get(index).anilist.getNative() != null) {
@@ -125,11 +116,28 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         if (results.get(index).anilist.getRomaji() != null) {
             m_binding.tvAnimeRomaji.setText(results.get(index).anilist.getRomaji());
         }
-        if (results.get(index).image != null) {
-            Glide.with(this)
-                    .load(results.get(index).image)
-                    .apply(RequestOptions.centerCropTransform())
-                    .into(m_binding.ivPhoto);
+        if (m_appSettingsManager.getVideoEnabled()) {
+            m_binding.vvPhoto.setVisibility(View.VISIBLE);
+            m_binding.ivPhoto.setVisibility(View.GONE);
+            if (results.get(index).video != null) {
+                m_binding.vvPhoto.setVideoURI(Uri.parse(results.get(index).video));
+                m_binding.vvPhoto.start();
+                m_binding.vvPhoto.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        m_binding.vvPhoto.seekTo(0);
+                        m_binding.vvPhoto.start();
+                    }
+                });
+            }
+        } else {
+            m_binding.vvPhoto.setVisibility(View.GONE);
+            m_binding.ivPhoto.setVisibility(View.VISIBLE);
+            if (results.get(index).image != null) {
+                Glide.with(this)
+                        .load(results.get(index).image)
+                        .into(m_binding.ivPhoto);
+            }
         }
         m_binding.tvEpisode.setText("第" + (int) results.get(index).episode + "集");
         m_binding.tvFromTo.setText("從 " + secondsToMinutesAndSeconds(results.get(index).from) + " 到 " + secondsToMinutesAndSeconds(results.get(index).myto));

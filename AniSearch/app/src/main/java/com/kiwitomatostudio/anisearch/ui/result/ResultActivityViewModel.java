@@ -1,4 +1,4 @@
-package com.kiwitomatostudio.anisearch.result;
+package com.kiwitomatostudio.anisearch.ui.result;
 
 import android.util.Log;
 
@@ -39,8 +39,6 @@ public class ResultActivityViewModel extends ViewModel {
     public void onShowLoading(boolean yes) {
         m_showLoading.postValue(yes);
     }
-    private final MutableLiveData<Boolean> m_showFailed = new MutableLiveData<>();
-    public LiveData<Boolean> showFailed = m_showFailed;
 
     private MutableLiveData<ArrayList<AnimeResult>> m_result = new MutableLiveData<>();
     public LiveData<ArrayList<AnimeResult>> result = m_result;
@@ -51,8 +49,6 @@ public class ResultActivityViewModel extends ViewModel {
         RequestBody requestBody = RequestBody.create(mediaType, new File(imageFilePath));
         MultipartBody.Part imagePart = MultipartBody.Part.createFormData("image", "demo.jpg", requestBody);
         Call<SearchImageResponse> call = m_apiService.search(imagePart);
-        onShowLoading(true);
-        m_showFailed.postValue(false);
         call.enqueue(new Callback<SearchImageResponse>() {
             @Override
             public void onResponse(Call<SearchImageResponse> call, Response<SearchImageResponse> response) {
@@ -73,7 +69,6 @@ public class ResultActivityViewModel extends ViewModel {
             public void onFailure(Call<SearchImageResponse> call, Throwable t) {
                 Log.d("ResultActivityViewModel", "onFailure: " + t.getMessage());
                 m_showLoading.postValue(false);
-                m_showFailed.postValue(true);
             }
         });
     }

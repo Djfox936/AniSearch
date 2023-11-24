@@ -1,4 +1,4 @@
-package com.kiwitomatostudio.anisearch.main;
+package com.kiwitomatostudio.anisearch.ui.main;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
@@ -18,7 +18,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.kiwitomatostudio.anisearch.R;
 import com.kiwitomatostudio.anisearch.databinding.ActivityMainBinding;
-import com.kiwitomatostudio.anisearch.result.ResultActivity;
+import com.kiwitomatostudio.anisearch.ui.result.ResultActivity;
+import com.kiwitomatostudio.anisearch.ui.settings.SettingsActivity;
 import com.kiwitomatostudio.anisearch.utils.NetworkUtils;
 import com.yalantis.ucrop.UCrop;
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         observe();
         m_binding.btnSearch.setOnClickListener(this);
         m_binding.ivScreenshot.setOnClickListener(this);
+        m_binding.ivSettings.setOnClickListener(this);
         // Registers a photo picker activity launcher in single-select mode.
         m_pickMedia =
                 registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
@@ -81,6 +83,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             m_pickMedia.launch(new PickVisualMediaRequest.Builder()
                     .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
                     .build());
+        }
+        if(view == m_binding.ivSettings){
+            Intent intent = new Intent();
+            intent.setClass(this, SettingsActivity.class);
+            startActivity(intent);
         }
     }
 

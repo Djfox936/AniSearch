@@ -34,11 +34,11 @@
         android:layout_height="0dp"
         android:layout_marginTop="0dp"
         android:visibility="gone"
-        tools:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/ll_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title">
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,6 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="共找到5筆結果"></TextView>
+
             <TextView
                 android:id="@+id/tv_similarity"
                 android:layout_width="wrap_content"
@@ -59,18 +60,25 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_place_photo"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:background="@android:color/transparent"
                 app:cardCornerRadius="16dp">
 
+                <VideoView
+                    android:id="@+id/vv_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="centerCrop" />
                 <ImageView
                     android:id="@+id/iv_photo"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="centerCrop"></ImageView>
             </androidx.cardview.widget.CardView>
 
 
@@ -79,10 +87,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:textIsSelectable="true"
                 android:textSize="25sp"
                 android:textStyle="bold"
-                tools:text="ライザのアトリエ ～常闇の女王と秘密の隠れ家～"
-                android:textIsSelectable="true"/>
+                tools:text="ライザのアトリエ ～常闇の女王と秘密の隠れ家～" />
 
             <TextView
                 android:id="@+id/tv_anime_romaji"
@@ -90,19 +98,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textColor="#808080"
+                android:textIsSelectable="true"
                 android:textSize="18sp"
-                tools:text="Ryza no Atelier: Tokoyami no Joou to Himitsu no Kakurega"
-                android:textIsSelectable="true"/>
+                tools:text="Ryza no Atelier: Tokoyami no Joou to Himitsu no Kakurega" />
 
             <TextView
                 android:id="@+id/tv_episode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:textIsSelectable="true"
                 android:textSize="18sp"
-                tools:text="第三集"
                 android:textStyle="bold"
-                android:textIsSelectable="true"/>
+                tools:text="第三集" />
 
             <TextView
                 android:id="@+id/tv_from_to"
@@ -144,47 +152,21 @@
             android:id="@+id/btn_prev"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
             android:background="@drawable/rounded_button"
             android:text="上一筆"
-            android:textColor="#ffffff"
-            android:layout_weight="1"
-            android:layout_marginEnd="5dp"></androidx.appcompat.widget.AppCompatButton>
+            android:textColor="#ffffff"></androidx.appcompat.widget.AppCompatButton>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
             android:background="@drawable/rounded_button"
             android:text="下一筆"
-            android:textColor="#ffffff"
-            android:layout_weight="1"
-            android:layout_marginStart="5dp"></androidx.appcompat.widget.AppCompatButton>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_no_connection"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/no_connection"
-            android:layout_gravity="center_horizontal"></ImageView>
-        <TextView
-            android:id="@+id/tv_no_connection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="獲取資訊失敗"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center_horizontal"></TextView>
+            android:textColor="#ffffff"></androidx.appcompat.widget.AppCompatButton>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

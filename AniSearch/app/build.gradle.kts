@@ -14,8 +14,8 @@ android {
         applicationId = "com.kiwitomatostudio.anisearch"
         minSdk = 26
         targetSdk = 34
-        versionCode = 3
-        versionName = "1.0"
+        versionCode = 4
+        versionName = "1.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -46,6 +46,7 @@ dependencies {
     implementation ("com.fasterxml.jackson.core:jackson-annotations:2.11.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation ("com.github.yalantis:ucrop:2.2.8-native")
+    implementation("androidx.preference:preference:1.2.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

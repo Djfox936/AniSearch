@@ -7,6 +7,7 @@ import androidx.preference.PreferenceManager;
 
 public class AppSettingsManager {
     private static final String KEY_VIDEO_ENABLED = "video_enabled";
+    private static final String KEY_MUTE_ENABLED = "mute_enabled";
 
     private static AppSettingsManager m_instance;
     private final SharedPreferences m_preferences;
@@ -32,6 +33,16 @@ public class AppSettingsManager {
 
     public boolean getVideoEnabled() {
         return m_preferences.getBoolean(KEY_VIDEO_ENABLED, false);
+    }
+
+    public void setMuteEnabled(boolean isEnabled) {
+        SharedPreferences.Editor editor = m_preferences.edit();
+        editor.putBoolean(KEY_MUTE_ENABLED, isEnabled);
+        editor.apply();
+    }
+
+    public boolean getMuteEnabled() {
+        return m_preferences.getBoolean(KEY_MUTE_ENABLED, false);
     }
 }
 

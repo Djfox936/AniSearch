@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".result.ResultActivity">
+    tools:context=".ui.result.ResultActivity">
+
 
     <ImageView
         android:id="@+id/iv_back"
@@ -58,6 +59,7 @@
                 android:layout_height="wrap_content"
                 tools:text="相似度爲0.8618742915651271"></TextView>
 
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_place_photo"
                 android:layout_width="wrap_content"
@@ -75,11 +77,20 @@
                     android:scaleType="centerCrop" />
                 <ImageView
                     android:id="@+id/iv_photo"
-                    android:layout_width="wrap_content"
+                    android:layout_width="300dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:scaleType="centerCrop"></ImageView>
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/pr_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="visible"
+                    android:indeterminate="true" />
             </androidx.cardview.widget.CardView>
+
 
 
             <TextView
@@ -144,29 +155,28 @@
         android:orientation="horizontal"
         android:padding="20dp"
         android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/btn_prev"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
-            android:background="@drawable/rounded_button"
-            android:text="上一筆"
-            android:textColor="#ffffff"></androidx.appcompat.widget.AppCompatButton>
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:text="上一筆"></Button>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/btn_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_weight="1"
-            android:background="@drawable/rounded_button"
-            android:text="下一筆"
-            android:textColor="#ffffff"></androidx.appcompat.widget.AppCompatButton>
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:text="下一筆"></Button>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

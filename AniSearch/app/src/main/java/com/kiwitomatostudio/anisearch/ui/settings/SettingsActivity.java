@@ -21,6 +21,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         m_appSettingsManager = AppSettingsManager.getInstance(this);
         m_binding.ivBack.setOnClickListener(this);
         initializeVideoSwitch();
+        initializeMuteSwitch();
 
     }
 
@@ -37,6 +38,15 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         m_binding.msVideo.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             m_appSettingsManager.setVideoEnabled(isChecked);
+        });
+    }
+
+    private void initializeMuteSwitch() {
+        boolean isMuteEnabled = m_appSettingsManager.getMuteEnabled();
+        m_binding.msMute.setChecked(isMuteEnabled);
+
+        m_binding.msMute.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            m_appSettingsManager.setMuteEnabled(isChecked);
         });
     }
 }

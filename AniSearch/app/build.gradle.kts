@@ -14,8 +14,8 @@ android {
         applicationId = "com.kiwitomatostudio.anisearch"
         minSdk = 26
         targetSdk = 34
-        versionCode = 4
-        versionName = "1.0.1"
+        versionCode = 5
+        versionName = "1.0.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

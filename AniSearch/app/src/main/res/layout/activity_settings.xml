@@ -40,8 +40,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -70,12 +69,55 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tvVideo"
                         android:layout_alignStart="@id/tvVideo"
-                        android:text="用影片取代縮圖 (載入時間較久)">
+                        android:text="用影片取代縮圖">
 
                     </TextView>
 
                     <com.google.android.material.materialswitch.MaterialSwitch
                         android:id="@+id/msVideo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true">
+
+                    </com.google.android.material.materialswitch.MaterialSwitch>
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/tvMute"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:text="靜音"
+                        android:textSize="18sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvMute"
+                        android:layout_alignStart="@id/tvMute"
+                        android:text="若選擇影片則靜音">
+
+                    </TextView>
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/msMute"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"

@@ -1,19 +1,28 @@
 package com.kiwitomatostudio.anisearch.ui.result;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.kiwitomatostudio.anisearch.R;
 import com.kiwitomatostudio.anisearch.api.dto.AnimeResult;
 import com.kiwitomatostudio.anisearch.databinding.ActivityResultBinding;
@@ -122,6 +131,17 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             if (results.get(index).video != null) {
                 m_binding.vvPhoto.setVideoURI(Uri.parse(results.get(index).video));
                 m_binding.vvPhoto.start();
+                m_binding.vvPhoto.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        m_binding.prPhoto.setVisibility(View.GONE);
+                        if (m_appSettingsManager.getMuteEnabled()) {
+                            mp.setVolume(0, 0);
+                        } else {
+                            mp.setVolume(1, 1);
+                        }
+                    }
+                });
                 m_binding.vvPhoto.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
@@ -133,6 +153,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         } else {
             m_binding.vvPhoto.setVisibility(View.GONE);
             m_binding.ivPhoto.setVisibility(View.VISIBLE);
+            m_binding.prPhoto.setVisibility(View.GONE);
             if (results.get(index).image != null) {
                 Glide.with(this)
                         .load(results.get(index).image)
@@ -140,12 +161,15 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
         m_binding.tvEpisode.setText("第" + (int) results.get(index).episode + "集");
-        m_binding.tvFromTo.setText("從 " + secondsToMinutesAndSeconds(results.get(index).from) + " 到 " + secondsToMinutesAndSeconds(results.get(index).myto));
+        m_binding.tvFromTo.setText("從 " + timeToString(results.get(index).from) + " 到 " + timeToString(results.get(index).myto));
         m_binding.tvSimilarity.setText("相似度爲 " + results.get(index).similarity);
         toggleButton();
     }
 
     private void toggleButton() {
+        if(m_appSettingsManager.getVideoEnabled()){
+            m_binding.prPhoto.setVisibility(View.VISIBLE);
+        }
         if (m_index >= m_size - 1) {
             m_binding.btnNext.setEnabled(false);
         } else {
@@ -168,4 +192,19 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
         return String.format("%d分%d秒", minutes, remainingSeconds);
     }
+
+    private String timeToString(double seconds) {
+        int hours = (int) seconds / 3600;
+        int minutes = ((int) seconds % 3600) / 60;
+        int remainingSeconds = (int) seconds % 60;
+
+        if (hours > 0) {
+            return String.format("%d時%d分%d秒", hours, minutes, remainingSeconds);
+        } else if (minutes > 0) {
+            return String.format("%d分%d秒", minutes, remainingSeconds);
+        } else {
+            return String.format("%d秒", remainingSeconds);
+        }
+    }
+
 }

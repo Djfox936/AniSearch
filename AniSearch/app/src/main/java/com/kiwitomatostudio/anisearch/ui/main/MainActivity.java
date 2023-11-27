@@ -115,9 +115,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .skipMemoryCache(true)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .into(m_binding.ivScreenshot);
-            } else {
-                m_binding.ivScreenshot.setImageResource(R.drawable.ic_launcher_background);
             }
         });
     }
+
 }
